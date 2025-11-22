@@ -32,28 +32,33 @@
 ├── params.yaml           # гиперпараметры сплита и модели
 ├── requirements.txt      # зависимости проекта
 └── README.md             # документация (этот файл)
+```
+---
+ 
 Как запустить
 Все команды выполняются из корня репозитория.
 
-bash
-Копировать код
+```bash
+
 python -m venv .venv            # создать виртуальное окружение (один раз)
 .venv\Scripts\activate          # активировать окружение (Windows)
 pip install -r requirements.txt # установить зависимости
 dvc pull                        # скачать данные из DVC-хранилища
 dvc repro                       # запустить весь ML-пайплайн (prepare + train)
-После выполнения dvc repro:
+```
 
-будут созданы/обновлены файлы data/processed/train.csv и data/processed/test.csv;
+#После выполнения dvc repro:
 
-обучится модель и сохранится в файл model.pkl;
+- будут созданы/обновлены файлы data/processed/train.csv и data/processed/test.csv;
 
-метрика accuracy и параметры модели будут залогированы в MLflow.
+- обучится модель и сохранится в файл model.pkl;
 
-Краткое описание пайплайна
+- метрика accuracy и параметры модели будут залогированы в MLflow.
+
+#Краткое описание пайплайна
 Пайплайн описан в файле dvc.yaml и состоит из двух стадий.
 
-Стадия prepare
+- Стадия prepare
 Скрипт: src/prepare.py
 
 Входы:
@@ -76,7 +81,7 @@ data/processed/test.csv
 
 сохранение подготовленных выборок в data/processed/.
 
-Стадия train
+- Стадия train
 Скрипт: src/train.py
 
 Входы:
@@ -101,12 +106,14 @@ params.yaml (секция model)
 
 логирование параметров (model, C, max_iter), метрики (accuracy) и артефакта (model.pkl) в MLflow.
 
-Где смотреть UI MLflow
+#Где смотреть UI MLflow
 Запустить MLflow Tracking UI (в активированном .venv):
 
-bash
-Копировать код
+```bash
+
 mlflow ui --backend-store-uri sqlite:///mlflow.db
+```
+
 Открыть браузер и перейти по адресу:
 
 http://localhost:5000
